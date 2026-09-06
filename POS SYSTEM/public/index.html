@@ -29860,20 +29860,38 @@ Error generating stack: ` + s.message + `
     };
     async function Al(e, t) {
        try {
+        let r = await fetch(`/api/data?key=${encodeURIComponent(e)}`);
+        if (r.ok) {
+          let a = await r.json();
+          if (a !== null) {
+            try { window.localStorage.setItem(e, JSON.stringify(a)); } catch { }
+            return a;
+          }
+        }
+      }
+      catch { }
+       try {
         let a = window.localStorage.getItem(e);
         if (a)
         return JSON.parse(a);
       }
-      catch { } return t; 
+      catch { } return t;
     }
     async function Mi(e, t) {
        try {
-        return window.localStorage.setItem(e, JSON.stringify(t)),
-         !0;
+        window.localStorage.setItem(e, JSON.stringify(t));
+      }
+      catch { }
+       try {
+        let r = await fetch(`/api/data?key=${encodeURIComponent(e)}`, {
+          method: "PUT",
+           headers: { "content-type": "application/json" },
+           body: JSON.stringify(t)
+        }); return r.ok;
       }
       catch {
         return !1;
-      } 
+      }
     }
     var et = ({ label: e, children: t, hint: a }) => c.default.createElement(
       "label",
@@ -33795,7 +33813,7 @@ Error generating stack: ` + s.message + `
          c.default.createElement(
           st,
            {
-             title: "Your records live on this computer",
+             title: "Your records sync across your devices",
              right: c.default.createElement(
               Qe,
                { kind: "primary", onClick: w },
@@ -33806,7 +33824,7 @@ Error generating stack: ` + s.message + `
            c.default.createElement(
             "p",
              { className: "text-sm mb-4", style: { color: W.ink70, maxWidth: 660 } },
-             "Nothing is sent anywhere \u2014 orders, prices, stock, payments and expenses are stored in this browser on this PC. Clearing your browsing data would erase them, so save a backup regularly, and carry that file to any second computer you want to keep in step."
+             "Orders, prices, stock, payments and expenses are saved to your Netlify site's shared storage, so any computer or phone that opens this page sees the same data. A copy is also kept in this browser so the app still works if the connection drops. Save a backup file too, just in case."
           ),
            c.default.createElement(
             "div",
