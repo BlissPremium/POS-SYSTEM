@@ -1,0 +1,9 @@
+{
+  "name": "cleaning-co-pos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cleaning Co. Sales — Point of Sale, with server-side data storage via Netlify Blobs",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.1"
+  }
+}
