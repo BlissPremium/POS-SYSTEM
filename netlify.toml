@@ -1,0 +1,4 @@
+[build]
+  base = "POS SYSTEM"
+  publish = "public"
+  functions = "netlify/functions"
